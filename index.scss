@@ -1,0 +1,42 @@
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+body{
+
+    background-color: rgb(230, 226, 255) !important;
+}
+@mixin posElem(){
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container{
+    margin-top: 100px;
+    background-color: rgb(219, 219, 255);
+    @include posElem();
+    height: 500px !important;
+    width: 500px !important;
+    position: relative;
+    border-radius: 20px;
+   
+    &::before{
+        border-radius: 20px;
+        top: -2%;
+        left: -2%;
+        position: absolute;
+        content: "";
+        background: linear-gradient(0.25turn, rgb(0, 0, 0), red);
+        width: 104%;
+        height: 104%;
+        z-index: -1;
+    }
+   
+}
+main{
+    @include posElem();
+    height: 90vh;
+    flex-direction: column;
+}
