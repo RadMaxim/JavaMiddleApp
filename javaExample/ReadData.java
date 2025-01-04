@@ -1,5 +1,8 @@
 package org.example;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
@@ -16,5 +19,16 @@ public class ReadData {
             people.put(resultSet.getString(2), person);
         }
         return people;
+    }
+    public static JSONArray getDataFromDataBaseJSONArray() throws Exception{
+        Statement statement  = ConnectionWithDataBase.getConnection().createStatement();
+        ResultSet resultSet =statement.executeQuery(sql);
+        JSONArray jsonArray = new JSONArray();
+        while (resultSet.next()){
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.put(resultSet.getString(2),resultSet.getString(3));
+            jsonArray.put(jsonObject);
+        }
+        return jsonArray;
     }
 }

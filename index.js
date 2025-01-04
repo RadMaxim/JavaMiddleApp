@@ -1,5 +1,6 @@
-let connection = new WebSocket('ws://127.0.0.1:7777');
+import {connection} from './main.js'
 
+let btn = document.getElementById("btn");
 connection.onopen = function(){
 	console.log('Connected!');
     
@@ -9,12 +10,6 @@ connection.onerror = function(error){
 	console.log('WebSocket Error ' + error);
 };
 
-connection.onmessage = function(e){
-	console.log(e.data);
-    console.log("wef");
-    
-};
-let btn = document.getElementById("btn");
 btn.addEventListener('click',(e)=>{
     e.preventDefault()
     onLoginBtnClick();

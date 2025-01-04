@@ -19,6 +19,11 @@ public class MyServer extends WebSocketServer {
     @Override
     public void onOpen(WebSocket webSocket, ClientHandshake clientHandshake) {
         sockets.add(webSocket);
+        try {
+            broadcast(ReadData.getDataFromDataBaseJSONArray().toString());
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
@@ -36,7 +41,12 @@ public class MyServer extends WebSocketServer {
         }
         System.out.println(s);
         WriteData.WriteD(user.get("name").toString(),user.get("pass").toString());
-        broadcast(Main.people.toString());
+        try {
+            System.out.println(ReadData.getDataFromDataBaseJSONArray());
+            broadcast(ReadData.getDataFromDataBaseJSONArray().toString());
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
 
     }
 
@@ -50,6 +60,7 @@ public class MyServer extends WebSocketServer {
 
     }
     public void broadcast(String message) {
+        System.out.println(message);
         for (WebSocket socket : sockets) {
             if (socket.isOpen()) { // Проверяем, открыт ли сокет, чтобы избежать ошибок.
                 socket.send(message);
